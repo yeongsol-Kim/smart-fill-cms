@@ -28,44 +28,47 @@ public class MemberController {
     @PostMapping("/members/new")
     public String create(MemberForm form) {
         Member member = new Member();
-        member.setName(form.getName());
+        member.setUserName(form.getName());
+        member.setEmail(form.getEmail());
+        member.setPhone_number(form.getPhone_number());
+        member.setAddress(form.getAddress());
 
         memberService.join(member);
 
-        return "redirect:/";
+        return "redirect:/members";
     }
 
     @GetMapping("/members/test")
     public String memberSampleData() {
         Member member1 = new Member();
-        member1.setName("신민석");
+        member1.setUserName("신민석");
         member1.setEmail("sms@user.com");
-        member1.setCar_number("11가1111");
-        member1.setRole(1);
+        member1.setCar_id("11가1111");
+        member1.setType(1);
 
         memberService.join(member1);
 
         Member member2 = new Member();
-        member2.setName("김영솔");
+        member2.setUserName("김영솔");
         member2.setEmail("kys@user.com");
-        member2.setCar_number("12가1234");
-        member2.setRole(1);
+        member2.setCar_id("12가1234");
+        member2.setType(1);
 
         memberService.join(member2);
 
         Member member3 = new Member();
-        member3.setName("조영주");
+        member3.setUserName("조영주");
         member3.setEmail("jyj@user.com");
-        member3.setCar_number("221가2222");
-        member3.setRole(1);
+        member3.setCar_id("221가2222");
+        member3.setType(1);
 
         memberService.join(member3);
 
         Member member4 = new Member();
-        member4.setName("김찬혁");
+        member4.setUserName("김찬혁");
         member4.setEmail("kch@user.com");
-        member4.setCar_number("456나1231");
-        member4.setRole(1);
+        member4.setCar_id("456나1231");
+        member4.setType(1);
 
         memberService.join(member4);
 
@@ -78,4 +81,6 @@ public class MemberController {
         model.addAttribute("members", members);
         return "members/memberList";
     }
+
 }
+

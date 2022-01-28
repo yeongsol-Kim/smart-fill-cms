@@ -1,12 +1,37 @@
 package hello.hellospring.domain;
 
+import javax.persistence.*;
+
+@Table(name = "users")
+@Entity
 public class Member {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
-    private String name;
+    @Column(name="username")
     private String userName;
-    private String car_number;
-    private Integer role;
+    private String car_id;
+    private String phone_number;
+    private String address;
+    private Integer type;
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
 
     public String getEmail() {
         return email;
@@ -24,20 +49,20 @@ public class Member {
         this.userName = userName;
     }
 
-    public String getCar_number() {
-        return car_number;
+    public String getCar_id() {
+        return car_id;
     }
 
-    public void setCar_number(String car_number) {
-        this.car_number = car_number;
+    public void setCar_id(String car_id) {
+        this.car_id = car_id;
     }
 
-    public Integer getRole() {
-        return role;
+    public Integer getType() {
+        return type;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -46,13 +71,5 @@ public class Member {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

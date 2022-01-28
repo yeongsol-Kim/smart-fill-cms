@@ -15,6 +15,11 @@ public class HelloController {
         return "hello";
     }
 
+    @GetMapping("hello-lay")
+    public String helloLay() {
+        return "layout/layout";
+    }
+
     @GetMapping("hello-mvc")
     public String helloMvc(@RequestParam("name") String name, Model model) {
         model.addAttribute("name", name);
