@@ -1,7 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.*;
-import hello.hellospring.service.CarService;
+//import hello.hellospring.service.CarService;
 import hello.hellospring.service.FillLogService;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class SpringConfig {
         return new MemberService(memberRepository);
     }
 
-    @Bean
-    public CarService carService() {
-        return new CarService(carRepository);
-    }
+//    @Bean
+//    public CarService carService() {
+//        return new CarService(carRepository);
+//    }
 
     @Bean
     public FillLogService fillLogService() {
