@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.*;
+import hello.hellospring.service.CarService;
 import hello.hellospring.service.FillLogService;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,24 @@ import org.springframework.context.annotation.Configuration;
 public class SpringConfig {
 
     private final MemberRepository memberRepository;
+    //private final CarRepository carRepository;
 
     @Autowired
     public SpringConfig(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+        //this.carRepository = null;
     }
+
+
 
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository);
+    }
+
+    @Bean
+    public CarService carService() {
+        return new CarService(carRepository);
     }
 
     @Bean

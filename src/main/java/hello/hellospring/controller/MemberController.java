@@ -20,6 +20,15 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
+    }
+
+
     @GetMapping("/members/new")
     public String createForm() {
         return "members/createMemberForm";
@@ -75,12 +84,6 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/members")
-    public String list(Model model) {
-        List<Member> members = memberService.findMembers();
-        model.addAttribute("members", members);
-        return "members/memberList";
-    }
 
 }
 
