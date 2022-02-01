@@ -69,6 +69,7 @@
                             <th>관리</th>
                         </tr>
                         </tfoot>
+                        <tbody>
                         <tr th:each="member : ${members}" th:id="${member.id}" class="user-recode">
                             <td th:text="${member.id}"></td>
                             <td th:text="${member.userName}"></td>

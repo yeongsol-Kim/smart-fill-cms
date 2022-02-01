@@ -1,24 +1,10 @@
-package hello.hellospring.domain;
+package hello.hellospring.controller;
 
-import javax.persistence.*;
-
-@Table(name = "cars")
-@Entity
-public class Car {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CarForm {
     private Long car_number;
-    private Long years;
     private String car_type;
+    private Long years;
     private Long registration_number;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getCar_number() {
         return car_number;
@@ -28,20 +14,20 @@ public class Car {
         this.car_number = car_number;
     }
 
-    public Long getYears() {
-        return years;
-    }
-
-    public void setYears(Long years) {
-        this.years = years;
-    }
-
     public String getCar_type() {
         return car_type;
     }
 
     public void setCar_type(String car_type) {
         this.car_type = car_type;
+    }
+
+    public Long getYears() {
+        return years;
+    }
+
+    public void setYears(Long years) {
+        this.years = years;
     }
 
     public Long getRegistration_number() {

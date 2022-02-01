@@ -32,7 +32,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">직원 관리</h1>
+            <h1 class="h3 mb-0 text-gray-800">차량 관리</h1>
             <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i-->
             <!--                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
         </div>
@@ -40,48 +40,37 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">직원 목록</h6>
+                <h6 class="m-0 font-weight-bold text-primary">차량 목록</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>이름</th>
-                            <th>이메일</th>
-                            <th>등록차량</th>
-                            <th>연락처</th>
-                            <th>주소</th>
-                            <th>회원타입</th>
-                            <th>관리</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>차량번호</th>
+                                <th>차종</th>
+                                <th>등록번호</th>
+                                <th>배차</th>
+                            </tr>
                         </thead>
                         <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>이름</th>
-                            <th>이메일</th>
-                            <th>등록차량</th>
-                            <th>연락처</th>
-                            <th>주소</th>
-                            <th>회원타입</th>
-                            <th>관리</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>차량번호</th>
+                                <th>차종</th>
+                                <th>등록번호</th>
+                                <th>배차</th>
+                            </tr>
                         </tfoot>
-<!--                        <tr th:each="member : ${members}" th:id="${member.id}" class="recode">-->
-<!--                            <td th:text="${member.id}"></td>-->
-<!--                            <td th:text="${member.userName}"></td>-->
-<!--                            <td th:text="${member.email}"></td>-->
-<!--                            <td th:text="${member.car_id}"></td>-->
-<!--                            <td th:text="${member.phone_number}"></td>-->
-<!--                            <td th:text="${member.address}"></td>-->
-<!--                            <td th:text="${member.type}"></td>-->
-<!--                            <td>-->
-<!--                                <a th:href="@{#}" class="btn btn-primary btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>-->
-<!--                                <a th:href="@{#}" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
+                        <tbody>
+                            <tr th:each="car : ${cars}" th:id="${car.id}" class="recode">
+                                <td th:text="${car.id}"></td>
+                                <td th:text="${car.car_number}"></td>
+                                <td th:text="${car.car_type}+ '(' + ${car.years} + '년식)'"></td>
+                                <td th:text="${car.registration_number}"></td>
+                                <td th:text="'asd'"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -89,27 +78,27 @@
         </div>
 
         <!-- 추후 ajax로 변경 -->
-<!--        <div th:each="member : ${members}" th:id="'modal-' + ${member.id}" class="modal" tabindex="-1">-->
-<!--            <div class="modal-dialog modal-dialog-centered">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <h5 class="modal-title">회원정보</h5>-->
-<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                            <span aria-hidden="true">&times;</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        <div th:text="'이름: ' + ${member.userName}"></div>-->
-<!--                        <div th:text="'번호: ' + ${member.id} + '번 기사'"></div>-->
-<!--                        <div th:text="'연락처: ' + ${member.phone_number}"></div>-->
-<!--                        <div>마지막 주입날짜: 2022년 1월 28일 18시 28분 22초</div>-->
-<!--                        <div>마지막 주입량: 36.12리터</div>-->
-<!--                        <div>총 주입횟수: 62회</div>-->
-<!--                        <div>총 주입량: 1326.12리터</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div th:each="car : ${cars}" th:id="'modal-' + ${car.id}" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">회원정보</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div th:text="'차종: ' + ${car.car_type}"></div>
+                        <div th:text="'번호: ' + ${car.car_number}"></div>
+                        <div th:text="'담당기사: ' + '미배차'"></div>
+                        <div>마지막 주입날짜: 2022년 1월 28일 18시 28분 22초</div>
+                        <div>마지막 주입량: 36.12리터</div>
+                        <div>총 주입횟수: 62회</div>
+                        <div>총 주입량: 1326.12리터</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </th:block>
 </html>
