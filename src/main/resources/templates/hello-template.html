@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>hello</title>
-</head>
-<body>
-<p th:text="'안녕하세요. ' + ${name}"  > 안녕하슈 손님</p>
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+
+<th:block layout:fragment="css">
+    <style>
+        .image-upload {
+            width: 130px;
+            display: flex;
+            cursor: pointer;
+        }
+    </style>
+</th:block>
+
+
+<th:block layout:fragment="content">
+
+</th:block>
+
 </html>

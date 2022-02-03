@@ -4,6 +4,52 @@
       layout:decorate="~{layout/layout}">
 
 <th:block layout:fragment="css">
+    <style>
+        .profile_image {
+            padding: 20px;
+            width: 130px;
+            display: flex;
+            cursor: pointer;
+        }
+        .content-header{
+            width:200px;
+            display:grid;
+            padding-left: 30px;
+        }
+        .input_content{
+
+             width: max-content;
+
+        }
+
+        .content-body-value{
+            padding :10px
+        }
+
+        button.button_check{
+        width: 120px;
+            height: 40px;
+            color: #fff;
+            background: #004fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgb(0 79 255 / 30%);
+            transition: 0.3s;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            top: 100%;
+        }
+        button:focus {
+            outline:0;
+        }
+        button:hover{
+            background: rgba(0,79,255,0.9);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,79,255,0.6);
+        }
+    </style>
     <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 </th:block>
 
@@ -94,19 +140,37 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
+
                         <h5 class="modal-title">회원정보</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+
                     </div>
                     <div class="modal-body">
-                        <div th:text="'이름: ' + ${member.userName}"></div>
-                        <div th:text="'번호: ' + ${member.id} + '번 기사'"></div>
-                        <div th:text="'연락처: ' + ${member.phone_number}"></div>
-                        <div>마지막 주입날짜: 2022년 1월 28일 18시 28분 22초</div>
-                        <div>마지막 주입량: 36.12리터</div>
-                        <div>총 주입횟수: 62회</div>
-                        <div>총 주입량: 1326.12리터</div>
+                        <div class="profile_image">
+                                    <span id='View_area' style='position:relative; width: 100px; height: 160px; color: black; border: 0px solid black; dispaly: inline;'>
+                                        <img id="prev_View_area" style="width: 100px; height: 125px; border:1px solid #CDCDCD;" src="/img/user-blank.png"/>
+                                    </span>
+                            <div class="content-header">
+                                <div th:text="'이름: ' + ${member.userName}"></div>
+                                <div th:text="'번호: ' + ${member.id} + '번 기사'"></div>
+                                <div class="input_content" th:text="'연락처: ' + ${member.phone_number}"></div>
+                            </div>
+                        </div>
+
+                        <div class="content-body">
+                            <div class="content-body-value">마지막 주입날짜: 2022년 1월 28일 18시 28분 22초</div>
+                            <div class="content-body-value">마지막 주입량: 36.12리터</div>
+                            <div class="content-body-value">총 주입횟수: 62회</div>
+                            <div class="content-body-value">총 주입량: 1326.12리터</div>
+                        </div>
+                        <button class="button_check" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">확인</span></button>
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>-->
+<!--                        <button type="button" class="check_button" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>-->
+
                     </div>
                 </div>
             </div>
