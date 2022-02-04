@@ -1,13 +1,18 @@
 package hello.hellospring.controller;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -34,55 +39,64 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
+    @GetMapping("/member")
+    public String signupForm() {
+        return "signup";
+    }
+
+    @PostMapping("/member")
+    public String signup(MemberInfoDto infoDto) {
+        memberService.save(infoDto);
+        return "redirect:login";
+    }
+
+
+    @GetMapping("/login")
+    public String loginPage(Model model) {
+        return "loginPage";
+    }
+
+//    @PostMapping("/login")
+//    public String login(LoginForm loginForm) {
+//        System.out.println(loginForm.getUsername());
+//        System.out.println(loginForm.getPassword());
+//        if( loginForm.getUsername() == "user" && loginForm.getPassword() == "pass") {
+//            return "redirect:/admin";
+//        } else {
+//            return "loginPage";
+//        }
+//    }
+
     @PostMapping("/members/new")
-    public String create(MemberForm form) {
+    public String create(MemberForm form) throws IOException {
         Member member = new Member();
         member.setUserName(form.getName());
         member.setEmail(form.getEmail());
         member.setPhone_number(form.getPhone_number());
         member.setAddress(form.getAddress());
 
+        MultipartFile file = form.getFile();
+
+        String dasePath = "C:/Users/W21236/Documents/boiler-plate/hello-spring/src/main/resources/static/uploadUserProfiles/"; //자신의 로컬 저장소
+        String ext = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));; // 파일 확장자
+        String saveFileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")); // 저장할 파일 이름 (현재 시간)
+        String downloadPath = dasePath + saveFileName + ext;
+
+        file.transferTo(new File(downloadPath));
+
+        member.setPicture(saveFileName + ext);
+
         memberService.join(member);
 
         return "redirect:/members";
     }
 
-    @GetMapping("/members/test")
-    public String memberSampleData() {
-        Member member1 = new Member();
-        member1.setUserName("신민석");
-        member1.setEmail("sms@user.com");
-        member1.setCar_id("11가1111");
-        member1.setType(1);
-
-        memberService.join(member1);
-
-        Member member2 = new Member();
-        member2.setUserName("김영솔");
-        member2.setEmail("kys@user.com");
-        member2.setCar_id("12가1234");
-        member2.setType(1);
-
-        memberService.join(member2);
-
-        Member member3 = new Member();
-        member3.setUserName("조영주");
-        member3.setEmail("jyj@user.com");
-        member3.setCar_id("221가2222");
-        member3.setType(1);
-
-        memberService.join(member3);
-
-        Member member4 = new Member();
-        member4.setUserName("김찬혁");
-        member4.setEmail("kch@user.com");
-        member4.setCar_id("456나1231");
-        member4.setType(1);
-
-        memberService.join(member4);
-
-        return "redirect:/";
+    @GetMapping("/memberDelete/{id}")
+    public String carDelete(@PathVariable Long id) {
+        memberService.deleteMember(id);
+        return "redirect:/members";
     }
+
 
 
 }

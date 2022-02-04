@@ -9,4 +9,8 @@ public interface SpringDataJpaCarRepository extends JpaRepository<Car, Long> {
 
     @Override
     Optional<Car> findById(Long aLong);
+
+
+    Car findByCarNumber(Long aLong);
+
 }

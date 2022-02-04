@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfig {
 
-    private final MemberRepository memberRepository;
+    private final SpringDataJpaMemberRepository memberRepository;
     private final SpringDataJpaCarRepository carRepository;
 
     @Autowired
-    public SpringConfig(MemberRepository memberRepository, SpringDataJpaCarRepository carRepository) {
+    public SpringConfig(SpringDataJpaMemberRepository memberRepository, SpringDataJpaCarRepository carRepository) {
         this.memberRepository = memberRepository;
         //this.carRepository = null;
         this.carRepository = carRepository;

@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class Car {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long car_number;
+    @Column(name="car_number")
+    private Long carNumber;
     private Long years;
     private String car_type;
     private Long registration_number;
@@ -20,12 +21,12 @@ public class Car {
         this.id = id;
     }
 
-    public Long getCar_number() {
-        return car_number;
+    public Long getCarNumber() {
+        return carNumber;
     }
 
-    public void setCar_number(Long car_number) {
-        this.car_number = car_number;
+    public void setCarNumber(Long carNumber) {
+        this.carNumber = carNumber;
     }
 
     public Long getYears() {

@@ -6,8 +6,7 @@ import hello.hellospring.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +27,12 @@ public class CarController {
         return "cars/carList";
     }
 
+    @DeleteMapping("/cars/{id}")
+    public String carDelete(@PathVariable Long id) {
+        carService.deleteCar(id);
+        return "redirect:/cars";
+    }
+
     @GetMapping("/cars/new")
     public String createForm(Model model) {
         return "cars/createCarForm";
@@ -36,7 +41,7 @@ public class CarController {
     @PostMapping("/cars/new")
     public String create(CarForm form) {
         Car car = new Car();
-        car.setCar_number(form.getCar_number());
+        car.setCarNumber(form.getCarNumber());
         car.setCar_type(form.getCar_type());
         car.setYears(form.getYears());
         car.setRegistration_number(form.getRegistration_number());
@@ -44,5 +49,16 @@ public class CarController {
         carService.insert(car);
 
         return "redirect:/cars";
+    }
+
+
+
+    // --------------------------------- 앱 통신
+
+    @ResponseBody
+    @GetMapping("/cars/number/{number}")
+    public Boolean isCar(@PathVariable Long number) {
+        boolean isCar = carService.isRegistrationCar(number);
+        return isCar;
     }
 }

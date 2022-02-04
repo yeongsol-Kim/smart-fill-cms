@@ -22,6 +22,19 @@ public class CarService {
         return car.getId();
     }
 
+    public void deleteCar(Long id) {
+        carRepository.deleteById(id);
+    }
+
+    public Boolean isRegistrationCar(Long number) {
+        if(carRepository.findByCarNumber(number) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 //    private void validateDuplicateMember(Member member) {
 //        memberRepository.findByName(member.getUserName())
 //                        .ifPresent(m -> {

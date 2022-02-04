@@ -4,6 +4,7 @@
       layout:decorate="~{layout/layout}">
 
 
+<!-- 본 페이지 커스텀 css -->
 <th:block layout:fragment="css">
     <style>
         .image-upload {
@@ -14,7 +15,9 @@
     </style>
 </th:block>
 
+<!-- 본 페이지 커스텀 script -->
 <th:block layout:fragment="script">
+
     <script>
         function previewImage(targetObj, View_area) {
         var preview = document.getElementById(View_area); //div id
@@ -110,14 +113,14 @@
                         <h6 class="m-0 font-weight-bold text-primary">직원 등록</h6>
                     </div>
                     <div class="card-body">
-                        <form action="/members/new" method="post">
+                        <form action="/members/new" method="post" enctype="multipart/form-data">
                             <div class="image-upload">
                                 <label for="profile_pt">
                                     <span id='View_area' style='position:relative; width: 100px; height: 160px; color: black; border: 0px solid black; dispaly: inline;'>
                                         <img id="prev_View_area" style="width: 100px; height: 125px; border:1px solid #CDCDCD;" src="/img/user-blank.png"/>
                                     </span>
                                 </label>
-                                <input type="file" name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">
+                                <input type="file" name="file" id="profile_pt" onchange="previewImage(this,'View_area')">
                             </div>
                             <div class="pic-upload"></div>
                             <label for="input-name" class="form-label">직원이름</label>

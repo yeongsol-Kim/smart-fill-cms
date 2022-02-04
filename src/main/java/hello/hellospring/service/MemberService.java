@@ -1,19 +1,39 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.repository.SpringDataJpaMemberRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public class MemberService {
+//@Service
+public class MemberService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final SpringDataJpaMemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(SpringDataJpaMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+    }
+
+    public Long save(MemberInfoDto infoDto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        infoDto.setPassword(encoder.encode(infoDto.getPassword()));
+
+        Member member = new Member();
+        member.setEmail(infoDto.getEmail());
+        member.setAuth(infoDto.getAuth());
+        member.setPassword("{bcrypt}" + infoDto.getPassword());
+
+        return memberRepository.save(member).getId();
     }
 
     // 회원가입
@@ -39,5 +59,16 @@ public class MemberService {
     // 회원 아이디로 조회
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    public void deleteMember(Long id) {
+        memberRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email);
+
+        return member;
     }
 }

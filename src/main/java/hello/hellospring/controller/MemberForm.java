@@ -1,10 +1,15 @@
 package hello.hellospring.controller;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
 public class MemberForm {
     private String name;
     private String email;
     private String phone;
     private String address;
+    private MultipartFile file;
 
 
     public String getName() {
@@ -37,5 +42,17 @@ public class MemberForm {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 }

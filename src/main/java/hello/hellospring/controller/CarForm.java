@@ -1,17 +1,17 @@
 package hello.hellospring.controller;
 
 public class CarForm {
-    private Long car_number;
+    private Long carNumber;
     private String car_type;
     private Long years;
     private Long registration_number;
 
-    public Long getCar_number() {
-        return car_number;
+    public Long getCarNumber() {
+        return carNumber;
     }
 
-    public void setCar_number(Long car_number) {
-        this.car_number = car_number;
+    public void setCarNumber(Long carNumber) {
+        this.carNumber = carNumber;
     }
 
     public String getCar_type() {

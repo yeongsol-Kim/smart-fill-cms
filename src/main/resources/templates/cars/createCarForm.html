@@ -108,7 +108,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">차량 등록</h6>
                     </div>
                     <div class="card-body">
-                        <form action="/cars/new" method="post">
+                        <form action="/cars/new" method="post" enctype="multipart/form-data">
                             <div class="image-upload">
                                 <label for="profile_pt">
                                     <span id='View_area' style='position:relative; width: 100px; height: 160px; color: black; border: 0px solid black; dispaly: inline;'>
@@ -118,8 +118,8 @@
                                 <input type="file" name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">
                             </div>
                             <div class="pic-upload"></div>
-                            <label for="input-car_number" class="form-label">차량번호</label>
-                            <input type="text" class="form-control mb-4" name="car_number" id="input-car_number" placeholder="ex) 0000"/>
+                            <label for="input-carNumber" class="form-label">차량번호</label>
+                            <input type="text" class="form-control mb-4" name="carNumber" id="input-carNumber" placeholder="ex) 0000"/>
                             <label for="input-car_type" class="form-label">차종</label>
                             <input type="text" class="form-control mb-4" name="car_type" id="input-car_type" placeholder="ex) 프리마"/>
                             <label for="input-years" class="form-label">연식</label>
