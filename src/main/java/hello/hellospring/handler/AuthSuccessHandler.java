@@ -23,7 +23,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        setDefaultTargetUrl("/members");
+        setDefaultTargetUrl("/");
 
         super.onAuthenticationSuccess(request, response, authentication);
     }

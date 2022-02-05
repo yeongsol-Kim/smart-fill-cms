@@ -39,33 +39,7 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    @GetMapping("/member")
-    public String signupForm() {
-        return "signup";
-    }
 
-    @PostMapping("/member")
-    public String signup(MemberInfoDto infoDto) {
-        memberService.save(infoDto);
-        return "redirect:login";
-    }
-
-
-    @GetMapping("/login")
-    public String loginPage(Model model) {
-        return "loginPage";
-    }
-
-//    @PostMapping("/login")
-//    public String login(LoginForm loginForm) {
-//        System.out.println(loginForm.getUsername());
-//        System.out.println(loginForm.getPassword());
-//        if( loginForm.getUsername() == "user" && loginForm.getPassword() == "pass") {
-//            return "redirect:/admin";
-//        } else {
-//            return "loginPage";
-//        }
-//    }
 
     @PostMapping("/members/new")
     public String create(MemberForm form) throws IOException {

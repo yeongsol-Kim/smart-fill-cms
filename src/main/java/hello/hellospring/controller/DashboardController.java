@@ -11,7 +11,7 @@ import java.util.List;
 public class DashboardController {
 
 
-    @GetMapping("/dashboard1")
+    @GetMapping("/")
     public String dashboard(Model model) {
         return "dashboard/register_place";
     }

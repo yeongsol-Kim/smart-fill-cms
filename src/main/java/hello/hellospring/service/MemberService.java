@@ -29,6 +29,7 @@ public class MemberService implements UserDetailsService {
         infoDto.setPassword(encoder.encode(infoDto.getPassword()));
 
         Member member = new Member();
+        member.setUserName(infoDto.getUsername());
         member.setEmail(infoDto.getEmail());
         member.setAuth(infoDto.getAuth());
         member.setPassword("{bcrypt}" + infoDto.getPassword());

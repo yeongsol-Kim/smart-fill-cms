@@ -150,7 +150,7 @@
                     <div class="modal-body">
                         <div class="profile_image">
                                     <span id='View_area' style='position:relative; width: 100px; height: 160px; color: black; border: 0px solid black; dispaly: inline;'>
-                                        <img id="prev_View_area" style="width: 100px; height: 125px; border:1px solid #CDCDCD;" src="/img/user-blank.png"/>
+                                        <img id="prev_View_area" style="width: 100px; height: 125px; border:1px solid #CDCDCD;" th:src="'/uploadUserProfiles/' + ${member.picture}"/>
                                     </span>
                             <div class="content-header">
                                 <div th:text="'이름: ' + ${member.userName}"></div>
