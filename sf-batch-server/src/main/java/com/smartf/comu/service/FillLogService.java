@@ -1,35 +1,35 @@
 package com.smartf.comu.service;
 
-import com.smartf.comu.domain.Log;
+import com.smartf.comu.domain.FillLog;
+import com.smartf.comu.dto.FillLogDto;
 import com.smartf.comu.dto.LogReportDto;
 import com.smartf.comu.repository.FillLogRepository;
 import com.smartf.comu.util.SecurityUtil;
-import org.springframework.data.domain.Sort;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class FillLogService {
 
     private final FillLogRepository fillLogRepository;
 
-    public FillLogService(FillLogRepository fillLogRepository) {
-        this.fillLogRepository = fillLogRepository;
-    }
-
-    public Long join(Log fillLog) {
+    public Long join(FillLog fillLog) {
         fillLogRepository.save(fillLog);
         return fillLog.getId();
     }
 
-    public List<Log> findFillLogs() {
+    public List<FillLog> findFillLogs() {
         return fillLogRepository.findAll();
     }
 
-    public List<Log> getLogsByBranchId(Long branchId) {
+    // 지점 지정 주입 내역 조회
+    public List<FillLog> getLogsByBranchId(Long branchId) {
         return fillLogRepository.findByBranchId(branchId);
 
         // Sort
@@ -38,20 +38,20 @@ public class FillLogService {
 
 
     // 지점의 주입 내역 조회
-    public List<Log> getBranchLogs(Long branchId) {
+    public List<FillLog> getBranchLogs(Long branchId) {
         return fillLogRepository.findByBranchId(branchId);
     }
 
-    // 주입 내역 조회 (지점 관리자)
-    public List<Log> getMyBranchLogs() {
+    // 주입 내역 조회 (지사 관리자)
+    public List<FillLogDto> getMyBranchLogs() {
         Long id = SecurityUtil.getCurrentDependentId().orElse(null);
-        return fillLogRepository.findByBranchId(id);
-        //return fillLogRepository.findByBranchId(id, Sort.by(Sort.Direction.DESC, "datetime"));
+        List<FillLog> fillLogs = fillLogRepository.findByBranchId(id);
+        return fillLogToDto(fillLogs);
     }
+
 
     // 지점의 월 주입 통계
     public List<LogReportDto> getGraphData(Long branchId) {
-
         List<LogReportDto> logReportDto = fillLogRepository.findByBranchIdGroupByMonthWithJPQL(branchId);
         return logReportDto;
     }
@@ -66,5 +66,23 @@ public class FillLogService {
     public List<LogReportDto> getMyGraphDataByCarNumber(String carNumber) {
         List<LogReportDto> logReportDto = fillLogRepository.findByCarNumberGroupByMonthWithJPQL(carNumber);
         return logReportDto;
+    }
+
+
+
+
+    private List<FillLogDto> fillLogToDto(List<FillLog> fillLogs) {
+        List<FillLogDto> fillLogDtoList = new ArrayList<>();
+        fillLogs.stream().forEach(
+                l -> fillLogDtoList.add(FillLogDto.builder()
+                        .amount(l.getAmount())
+                        .carNumber(l.getCarNumber())
+                        .datetime(l.getDatetime())
+                        .product(l.getProduct())
+                        .pumpId(l.getPumpId())
+                        .username(l.getUsername())
+                        .build())
+        );
+        return fillLogDtoList;
     }
 }

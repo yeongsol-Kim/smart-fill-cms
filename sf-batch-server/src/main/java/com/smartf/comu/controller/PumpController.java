@@ -35,7 +35,7 @@ public class PumpController {
     @GetMapping("pumps/new")
     @PreAuthorize("hasRole('BRANCH')")
     public String addPumpForm(Model model) {
-        List<Reservoir> reservoirs = reservoirService.getMyReservoirs();
+        List<Reservoir> reservoirs = reservoirService.getMyBranchReservoirs();
         model.addAttribute("reservoirs", reservoirs);
         return "pumps/createPumpForm";
     }

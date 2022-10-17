@@ -26,7 +26,7 @@ public class ReservoirService {
     }
 
     // 저장조 조회 (지점 관리자)
-    public List<Reservoir> getMyReservoirs() {
+    public List<Reservoir> getMyBranchReservoirs() {
         Long id = SecurityUtil.getCurrentDependentId().orElse(null);
         return reservoirRepository.findByBranchId(id);
     }

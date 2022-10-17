@@ -1,14 +1,11 @@
 package com.smartf.comu.controller;
 
-import com.smartf.comu.domain.Branch;
-import com.smartf.comu.domain.Pump;
 import com.smartf.comu.domain.Reservoir;
 import com.smartf.comu.dto.BranchDto;
+import com.smartf.comu.dto.FillLogDto;
 import com.smartf.comu.dto.ReservoirDto;
-import com.smartf.comu.service.BranchService;
-import com.smartf.comu.service.CompanyAdminService;
-import com.smartf.comu.service.PumpService;
-import com.smartf.comu.service.ReservoirService;
+import com.smartf.comu.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,30 +19,28 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class ReservoirController {
 
     private final ReservoirService reservoirService;
     private final BranchService branchService;
     private final PumpService pumpService;
     private final CompanyAdminService companyAdminService;
+    private final FillLogService fillLogService;
 
-    public ReservoirController(ReservoirService reservoirService, BranchService branchService, PumpService pumpService, CompanyAdminService companyAdminService) {
-        this.reservoirService = reservoirService;
-        this.branchService = branchService;
-        this.pumpService = pumpService;
-        this.companyAdminService = companyAdminService;
-    }
 
-    // 저장조 목록 페이지
-    @GetMapping("/reservoirs")
+    // 재고 페이지
+    @GetMapping("/stock")
     @PreAuthorize("hasAnyRole('BRANCH', 'ADMIN')")
-    public String reservoirList(Model model, Authentication authentication) {
+    public String stockPage(Model model, Authentication authentication) {
         if (authentication.getAuthorities().toString().equals("[ROLE_BRANCH]")) {
-            List<Reservoir> reservoirs = reservoirService.getMyReservoirs();
-            List<Pump> pumps = pumpService.getMyPumps();
-            model.addAttribute("pumps", pumps);
+            List<FillLogDto> fillLogList = fillLogService.getMyBranchLogs();
+            List<Reservoir> reservoirs = reservoirService.getMyBranchReservoirs();
+//            List<Pump> pumps = pumpService.getMyPumps();
+            model.addAttribute("fillLogs", fillLogList);
+//            model.addAttribute("pumps", pumps);
             model.addAttribute("reservoirs", reservoirs);
-            return "reservoirs/reservoirList";
+            return "stock/stockPage";
         } else if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
             List<BranchDto> branches = companyAdminService.getMyBranches();
             model.addAttribute("branches", branches);
@@ -54,6 +49,7 @@ public class ReservoirController {
 
         return "redirect:/";
     }
+
 
     // 저장조 등록 페이지
     @GetMapping("/reservoirs/new")

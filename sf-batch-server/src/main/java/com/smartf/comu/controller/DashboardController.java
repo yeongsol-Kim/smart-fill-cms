@@ -1,12 +1,13 @@
 package com.smartf.comu.controller;
 
-import com.smartf.comu.domain.Branch;
 import com.smartf.comu.domain.Car;
-import com.smartf.comu.domain.Log;
+import com.smartf.comu.domain.FillLog;
 import com.smartf.comu.domain.Reservoir;
 import com.smartf.comu.dto.BranchDto;
+import com.smartf.comu.dto.FillLogDto;
 import com.smartf.comu.dto.LogReportDto;
 import com.smartf.comu.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class DashboardController {
 
     private final BranchService branchService;
@@ -24,14 +26,6 @@ public class DashboardController {
     private final FillLogService fillLogService;
     private final ReservoirService reservoirService;
     private final CarService carService;
-
-    public DashboardController(BranchService branchService, CompanyAdminService companyAdminService, FillLogService fillLogService, ReservoirService reservoirService, CarService carService) {
-        this.branchService = branchService;
-        this.companyAdminService = companyAdminService;
-        this.fillLogService = fillLogService;
-        this.reservoirService = reservoirService;
-        this.carService = carService;
-    }
 
     @GetMapping("/")
     public String dashboard(Model model, Authentication authentication) {
@@ -43,8 +37,8 @@ public class DashboardController {
             return "company/demo";
 
         } else if (authType.equals("[ROLE_BRANCH]")) {
-            List<Log> fillLogs = fillLogService.getMyBranchLogs();
-            List<Reservoir> reservoirs = reservoirService.getMyReservoirs();
+            List<FillLogDto> fillLogs = fillLogService.getMyBranchLogs();
+            List<Reservoir> reservoirs = reservoirService.getMyBranchReservoirs();
             List<LogReportDto> logReports = fillLogService.getMyGraphData();
             List<Car> cars = carService.getMyBranchCarList();
             List<String> months = new ArrayList<>();
@@ -85,7 +79,7 @@ public class DashboardController {
             return "redirect:/";
         }
 
-        List<Log> fillLogs = fillLogService.getBranchLogs(id);
+        List<FillLog> fillLogs = fillLogService.getBranchLogs(id);
         List<Reservoir> reservoirs = reservoirService.getReservoirs(id);
         List<LogReportDto> logReports = fillLogService.getGraphData(id);
         List<Car> cars = carService.getBranchCarList(id);
