@@ -5,6 +5,17 @@
 
 <th:block layout:fragment="css">
     <style>
+        .form-item {
+            display: flex;
+        }
+        .form-label {
+            width: 75px;
+            text-align: justify;
+        }
+        .form-input {
+            flex:1;
+        }
+
     </style>
     <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 </th:block>
@@ -138,11 +149,38 @@
             <div class="col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header">
-                        <h6 class="m-0 font-weight-bold">입출고 수동 작성</h6>
+                        <h6 class="m-0 font-weight-bold">입출고 수동 작</h6>
                     </div>
                     <div class="card-body">
-
-
+                        <div class="">
+                            <form action="/fillLog" method="post">
+                                <div class="form-item">
+                                    <label for="stock-manage-datetime" class="form-label">일자</label>
+                                    <input id="stock-manage-datetime" name="datetime" type="datetime" class="form-input">
+                                </div>
+                                <div class="form-item">
+                                    <label for="stock-manage-company" class="form-label">거래처</label>
+                                    <input id="stock-manage-company" type="select" class="form-input">
+                                </div>
+                                <div class="form-item">
+                                    <label for="stock-manage-reservoir" class="form-label">저장조</label>
+                                    <input id="stock-manage-reservoir" name="reservoirId" class="form-input">
+                                </div>
+                                <div class="form-item">
+                                    <label for="stock-manage-current-amount" class="form-label">입고전잔량</label>
+                                    <input id="stock-manage-current-amount" class="form-input" disabled>
+                                </div>
+                                <div class="form-item">
+                                    <label for="stock-manage-current-amount" class="form-label">입고량</label>
+                                    <input id="stock-manage-amount" name="amount" class="form-input">
+                                </div>
+                                <div class="form-item">
+                                    <label for="stock-manage-complete-amount" class="form-label">입고후잔량</label>
+                                    <input id="stock-manage-complete-amount" name="" class="form-input" disabled>
+                                </div>
+                                <input type="submit">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

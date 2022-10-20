@@ -19,6 +19,7 @@ public class FillLogService {
 
     private final FillLogRepository fillLogRepository;
 
+
     public Long join(FillLog fillLog) {
         fillLogRepository.save(fillLog);
         return fillLog.getId();
@@ -34,6 +35,19 @@ public class FillLogService {
 
         // Sort
         //return fillLogRepository.findByBranchId(branchId, Sort.by(Sort.Direction.DESC, "datetime"));
+    }
+
+    public void addLog(FillLogDto fillLogDto) {
+        FillLog fillLog = FillLog.builder()
+                .amount(fillLogDto.getAmount())
+                .datetime(fillLogDto.getDatetime())
+                .branchId(fillLogDto.getBranchId())
+                .reservoirId(fillLogDto.getReservoirId())
+                .product(fillLogDto.getProduct())
+                        .build();
+
+        fillLogRepository.save(fillLog);
+
     }
 
 

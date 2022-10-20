@@ -66,5 +66,8 @@ public class FillLog {
     @Column(name = "car_number")
     private String carNumber;
 
+    @Column(name = "reservoir_id")
+    private Long reservoirId;
+
 
 }

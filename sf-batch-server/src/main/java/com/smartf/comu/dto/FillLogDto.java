@@ -18,7 +18,12 @@ public class FillLogDto {
 
     private LocalDateTime datetime;
 
+    private Long branchId;
+
     private Long pumpId;
+
+    private Long reservoirId;
+
 
     private String product;
 
